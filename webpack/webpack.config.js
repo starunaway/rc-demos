@@ -8,6 +8,18 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, '../dist'),
   },
+  resolve: {
+    extensions: ['.js', 'jsx'],
+    mainFiles: ['index'],
+    alias: {
+      '@src': path.resolve(__dirname, '../src'),
+      '@pages': path.resolve(__dirname, '../src/pages'),
+      '@components': path.resolve(__dirname, '../src/components'),
+      '@constants': path.resolve(__dirname, '../src/constants'),
+      '@utils': path.resolve(__dirname, '../src/utils'),
+      '@router': path.resolve(__dirname, '../src/router'),
+    },
+  },
   module: {
     rules: [
       {
