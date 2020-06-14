@@ -36,8 +36,10 @@
   },
   "dependencies": {
     "antd": "^4.3.3",
+    "better-xlsx": "^0.7.5",
     "clipboard": "^2.0.6",
     "clipboard-js": "^0.3.6",
+    "file-saver": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0"
