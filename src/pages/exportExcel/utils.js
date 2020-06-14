@@ -124,12 +124,18 @@ function insertRowData(sheet, data, sheetHeader) {
       let cell = row.addCell();
       if (!cellStatus[vIndex][hIndex]) {
         cell.style.align.v = 'center';
-        cell.style.align.h = 'center';
+        if (hIndex !== 0) {
+          cell.style.align.h = 'center';
+        }
         cellStatus[vIndex][hIndex] = 1;
         if (d[item.key].value) {
           cell.setString(d[item.key].value || '');
 
           if (d[item.key].vMerge) {
+            cell.vMerge = d[item.key].vMerge;
+          }
+          if (d[item.key].hMerge) {
+            cell.hMerge = d[item.key].hMerge;
           }
 
           for (let v = 0; v <= d[item.key].vMerge; v++) {
