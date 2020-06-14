@@ -94,8 +94,8 @@ class App extends React.Component {
   render() {
     const {clipboardData} = this.state;
     return (
-      <div className='App'>
-        <div>
+      <div>
+        <div className='page-top-btns'>
           <Button id='clipboardbtn' data-clipboard-text={clipboardData}>
             复制一行by clipboard
           </Button>
