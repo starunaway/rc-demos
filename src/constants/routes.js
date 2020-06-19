@@ -22,12 +22,12 @@ const ROUTES = [
     name: 'Css',
     path: '/css',
     component: Css,
-    // children: [
-    //   {
-    //     name: 'css画格子',
-    //     path: '/css/box',
-    //   },
-    // ],
+    children: [
+      {
+        name: 'css画格子',
+        path: '/css/box',
+      },
+    ],
   },
 ];
 
