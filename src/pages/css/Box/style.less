@@ -9,8 +9,12 @@
     flex-direction: column;
     .box-column-cell {
       border: 1px solid #888777;
-      height: 0;
-      padding-top: 100%;
+      float: left;
+      &:before {
+        float: left;
+        content: '';
+        padding-top: 100%;
+      }
     }
     .cell-selected {
       background-color: #99ff64;
