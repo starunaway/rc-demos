@@ -77,7 +77,6 @@ class App extends React.Component {
   handleRow = (record) => {
     return {
       onClick: (event) => {
-        console.log(record);
         this.setState({selected: record, clipboardData: `${record.name} ${record.age} ${record.address}`});
       }, // 点击行
     };

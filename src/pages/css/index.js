@@ -12,7 +12,7 @@ class Css extends Component {
       <Switch>
         <Route exact path='/css' component={Box}></Route>
         {Routes.map((route) => {
-          return <Route path={route.path} component={route.component}></Route>;
+          return <Route key={route.path} path={route.path} component={route.component}></Route>;
         })}
 
         <Redirect to='/css'></Redirect>

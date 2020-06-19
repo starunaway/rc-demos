@@ -7,7 +7,6 @@ const {Sider, Content} = Layout;
 
 class Main extends Component {
   render() {
-    console.log('render main');
     return (
       <Layout style={{height: '100%'}}>
         <Sider>

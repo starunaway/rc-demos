@@ -41,7 +41,6 @@ class LeftNav extends Component {
 
   render() {
     const {pathname} = this.props.location;
-    console.log(this.menuNodes);
     return (
       <div className='left-nav'>
         <Link to='/' className='left-nav-header'>
