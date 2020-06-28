@@ -8,7 +8,7 @@
           "chrome": "49",
           "ie": "11"
         },
-        "corejs": 3
+        "corejs": 2
       }
     ],
     "@babel/preset-react"

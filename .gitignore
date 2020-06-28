@@ -24,3 +24,4 @@ yarn-error.log*
 .history
 package-lock.json
 yarn-lock.json
+dist/
