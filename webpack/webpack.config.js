@@ -1,82 +1,13 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const path = require('path');
+const merge = require('webpack-merge');
+const devConfig = require('./webpack.dev.config.js');
+const prdConfig = require('./webpack.prd.config.js');
+const baseConfig = require('./webpack.base.config.js');
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: '/',
-  },
-  resolve: {
-    extensions: ['.js', 'jsx'],
-    mainFiles: ['index'],
-    alias: {
-      '@src': path.resolve(__dirname, '../src'),
-      '@pages': path.resolve(__dirname, '../src/pages'),
-      '@components': path.resolve(__dirname, '../src/components'),
-      '@constants': path.resolve(__dirname, '../src/constants'),
-      '@utils': path.resolve(__dirname, '../src/utils'),
-      '@router': path.resolve(__dirname, '../src/router'),
-    },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        use: ['babel-loader'],
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-
-          {
-            loader: 'postcss-loader', // 用于给css加前缀
-            options: {
-              plugins: [require('autoprefixer')],
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(less)$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader', // 用于给css加前缀
-            options: {
-              plugins: [require('autoprefixer')],
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                javascriptEnabled: true,
-              },
-            },
-          },
-        ],
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
-    new CleanWebpackPlugin(),
-  ],
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    historyApiFallback: true,
-    port: 10086,
-    hot: true,
-    open: true,
-  },
+module.exports = (mode) => {
+  if (mode === 'development') {
+    return merge(baseConfig, devConfig);
+  } else if (mode === 'production') {
+    return merge(baseConfig, prdConfig);
+  }
+  return merge(baseConfig);
 };

@@ -4,8 +4,8 @@
   "description": "react snippets",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack/webpack.config.js --open",
-    "build": "webpack --config webpack/webpack.config.js",
+    "start": "webpack-dev-server --env development --config webpack/webpack.config.js --open",
+    "build": "webpack --env production --config webpack/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,7 +35,8 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "antd": "^4.3.3",
