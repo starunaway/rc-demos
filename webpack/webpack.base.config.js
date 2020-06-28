@@ -94,25 +94,12 @@ module.exports = {
           priority: -20,
           reuseExistingChunk: true,
         },
-        a: {
+        vendor: {
           chunks: 'initial',
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          priority: 10,
+          minSize: 0,
+          minChunks: 2, //
           enforce: true,
-        },
-        vendors: {
-          test: /node_modules/,
-          minChunks: 2,
-          chunks: 'initial', // 覆盖默认值async
-          priority: -10,
-          minSize: 0, // 覆盖默认值30KB，防止库文件太小而无法抽离
-        },
-        common: {
-          minChunks: 2,
-          chunks: 'initial', // 覆盖默认值async
-          priority: -20,
-          minSize: 0, // 覆盖默认值30KB，防止库文件太小而无法抽离
+          name: 'common/vendor',
         },
       },
     },
