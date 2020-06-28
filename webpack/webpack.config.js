@@ -30,13 +30,29 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+
+          {
+            loader: 'postcss-loader', // 用于给css加前缀
+            options: {
+              plugins: [require('autoprefixer')],
+            },
+          },
+        ],
       },
       {
         test: /\.(less)$/,
         use: [
           'style-loader',
           'css-loader',
+          {
+            loader: 'postcss-loader', // 用于给css加前缀
+            options: {
+              plugins: [require('autoprefixer')],
+            },
+          },
           {
             loader: 'less-loader',
             options: {

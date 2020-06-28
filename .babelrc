@@ -3,18 +3,22 @@
     [
       "@babel/preset-env",
       {
-        "useBuiltIns": "usage",
+        "useBuiltIns": "usage", // 只引入代码中用到的polyfills
         "targets": {
           "chrome": "49",
           "ie": "11"
         },
-        "corejs": 2
+        "corejs": {
+          "version": 3 // 必须安装core-js@3版本才可以指定3
+        }
       }
     ],
     "@babel/preset-react"
   ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime", //  babel在转换ES6语法的时候，会使用一些由ES5编写的帮助函数来实现新语法的转换,这些代码可能再很多地方都用到，使用这个插件减少代码冗余
+
     [
       "import",
       {
