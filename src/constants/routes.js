@@ -2,6 +2,7 @@ import Clipboard from '@pages/clipboard';
 import Home from '@pages/home';
 import ExportExcel from '@pages/exportExcel';
 import Css from '@pages/css';
+import Katex from '@pages/katex';
 const ROUTES = [
   {
     name: '首页',
@@ -28,6 +29,11 @@ const ROUTES = [
         path: '/css/box',
       },
     ],
+  },
+  {
+    name: 'Katex',
+    path: '/katex',
+    component: Katex,
   },
 ];
 
