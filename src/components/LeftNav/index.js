@@ -8,19 +8,19 @@ const {SubMenu} = Menu;
 class LeftNav extends Component {
   constructor(props) {
     super(props);
-    this.menuNodes = this.getMenuNodes();
+    this.menuNodes = this.getMenuNodes(ROUTES);
     this.openKey = '';
   }
 
   getOpenKeys = (item) => {
     const {pathname} = this.props.location;
-    const cItem = item.children.find((child) => child.key === pathname);
+    const cItem = item.children.find((child) => child.path === pathname);
     if (cItem) {
       this.openKey = item.key;
     }
   };
 
-  getMenuNodes = () => {
+  getMenuNodes = (ROUTES) => {
     return ROUTES.map((item) => {
       if (!item.children) {
         return (

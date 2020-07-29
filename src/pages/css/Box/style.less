@@ -1,0 +1,31 @@
+.css-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  .box-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .box-column-cell {
+      border: 1px solid #888777;
+      float: left;
+      &:before {
+        float: left;
+        content: '';
+        padding-top: 100%;
+      }
+    }
+    .cell-selected {
+      background-color: #99ff64;
+    }
+  }
+}
+
+// body{
+//     background-color:white;
+//     background-image:
+//         linear-gradient(90deg, rgba(0,100,200,.5) 50%, transparent 50%),
+//         linear-gradient(rgba(0,100,200,.5) 50%, transparent 50%);
+//     background-size:50px 50px;
+// }
