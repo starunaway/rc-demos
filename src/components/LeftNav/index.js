@@ -8,6 +8,9 @@ const {SubMenu} = Menu;
 class LeftNav extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      openKey: '',
+    };
     this.menuNodes = this.getMenuNodes(ROUTES);
     this.openKey = '';
   }
@@ -16,7 +19,13 @@ class LeftNav extends Component {
     const {pathname} = this.props.location;
     const cItem = item.children.find((child) => child.path === pathname);
     if (cItem) {
-      this.openKey = item.key;
+      this.openKey = item.path;
+      this.state = {
+        openKey: item.path,
+      };
+      //   this.setState({
+      //     openKey: item.path,
+      //   });
     }
   };
 
@@ -41,12 +50,13 @@ class LeftNav extends Component {
 
   render() {
     const {pathname} = this.props.location;
+    const {openKey} = this.state;
     return (
       <div className='left-nav'>
         <Link to='/' className='left-nav-header'>
           <h1>react snips</h1>
         </Link>
-        <Menu mode='inline' theme='dark' selectedKeys={[pathname]} defaultOpenKeys={[this.openKey]}>
+        <Menu mode='inline' theme='dark' selectedKeys={[pathname]} defaultOpenKeys={[openKey]}>
           {this.menuNodes}
         </Menu>
       </div>

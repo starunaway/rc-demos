@@ -1,47 +1,39 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import './style.less';
 
-class Box extends Component {
-  state = {
-    selectedCell: [],
-  };
+export default () => {
+  const [selectedCell, setSelectedCell] = useState([]);
 
-  handleCellClick = (key) => () => {
-    let {selectedCell} = this.state;
+  const handleCellClick = (key) => () => {
     if (selectedCell.includes(key)) {
-      selectedCell = selectedCell.filter((c) => c !== key);
+      setSelectedCell((x) => x.filter((c) => c !== key));
     } else {
-      selectedCell.push(key);
+      setSelectedCell((x) => [...x, key]);
     }
-    this.setState({selectedCell: [...selectedCell]});
   };
 
-  renderCell = (columnIndex) => {
-    const {selectedCell} = this.state;
+  const renderCell = (columnIndex) => {
     return new Array(30).fill(' ').map((a, cellIndex) => {
       let cellKey = `${columnIndex}-${cellIndex}`;
       return (
         <div
           className={`box-column-cell ${selectedCell.includes(cellKey) ? 'cell-selected' : ''}`}
           key={cellKey}
-          onClick={this.handleCellClick(cellKey)}
+          onClick={handleCellClick(cellKey)}
         ></div>
       );
     });
   };
 
-  renderColumn = () => {
+  const renderColumn = () => {
     return new Array(30).fill(' ').map((a, columnIndex) => {
       return (
         <div className='box-column' key={columnIndex}>
-          {this.renderCell(columnIndex)}
+          {renderCell(columnIndex)}
         </div>
       );
     });
   };
 
-  render() {
-    return <div className='css-box'>{this.renderColumn()}</div>;
-  }
-}
-export default Box;
+  return <div className='css-box'>{renderColumn()}</div>;
+};
