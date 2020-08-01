@@ -1,16 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, Table, message} from 'antd';
 import './style.less';
 import Clipboard from 'clipboard';
 import clipboardjs from 'clipboard-js';
 
-class App extends React.Component {
-  componentDidMount() {
-    new Clipboard(document.getElementById('clipboardbtn'));
-    new Clipboard(document.getElementById('clipboardallbtn'));
-  }
-
-  dataSource = (function () {
+export default () => {
+  const dataSource = (function () {
     let dataSource = [];
     for (let i = 1; i < 20; i++) {
       dataSource.push({
@@ -23,7 +18,7 @@ class App extends React.Component {
     return dataSource;
   })();
 
-  columns = [
+  const columns = [
     {
       title: '姓名',
       dataIndex: 'name',
@@ -41,22 +36,24 @@ class App extends React.Component {
     },
   ];
 
-  state = {
-    selected: {},
-    clipboardData: null,
-  };
+  const [selected, setSelected] = useState({});
+  const [clipboardData, setClipboardData] = useState(null);
 
-  allClipboardData = (function (dataSource) {
+  useEffect(() => {
+    new Clipboard(document.getElementById('clipboardbtn'));
+    new Clipboard(document.getElementById('clipboardallbtn'));
+  }, [0]);
+
+  const allClipboardData = (function (dataSource) {
     let content = '';
     dataSource.forEach((d) => {
       content += `${d.name} ${d.age} ${d.address} `;
       content += '\n';
     });
     return content;
-  })(this.dataSource);
+  })(dataSource);
 
-  copyRecordJS = () => {
-    const {selected} = this.state;
+  const copyRecordJS = () => {
     if (!selected.key) {
       message.error('尚未选择！');
       return;
@@ -66,54 +63,46 @@ class App extends React.Component {
     message.success('复制成功');
   };
 
-  copyRecordsJS = () => {
+  const copyRecordsJS = () => {
     let content = '';
-    this.dataSource.forEach((d) => {
+    dataSource.forEach((d) => {
       content += `${d.name} ${d.age} ${d.address} `;
       content += '\n';
     });
     clipboardjs.copy(content);
   };
-  handleRow = (record) => {
+
+  const handleRow = (record) => {
     return {
       onClick: (event) => {
-        this.setState({selected: record, clipboardData: `${record.name} ${record.age} ${record.address}`});
+        setSelected((x) => record);
+        setClipboardData((x) => `${record.name} ${record.age} ${record.address}`);
+        // this.setState({selected: record, clipboardData: `${record.name} ${record.age} ${record.address}`});
       }, // 点击行
     };
   };
 
-  setRowClassName = (record) => {
-    if (record.key === this.state.selected.key) {
+  const setRowClassName = (record) => {
+    if (record.key === selected.key) {
       return 'selected';
     } else {
       return '';
     }
   };
 
-  render() {
-    const {clipboardData} = this.state;
-    return (
-      <div>
-        <div className='page-top-btns'>
-          <Button id='clipboardbtn' data-clipboard-text={clipboardData}>
-            复制一行by clipboard
-          </Button>
-          <Button id='clipboardallbtn' data-clipboard-text={this.allClipboardData}>
-            复制整体 by clipboard
-          </Button>
-          <Button onClick={this.copyRecordJS}>复制一行by clipboard.js</Button>
-          <Button onClick={this.copyRecordsJS}>复制整体 by clipboard.js</Button>
-        </div>
-        <Table
-          rowClassName={this.setRowClassName}
-          onRow={this.handleRow}
-          dataSource={this.dataSource}
-          columns={this.columns}
-        />
-        ;
+  return (
+    <div>
+      <div className='page-top-btns'>
+        <Button id='clipboardbtn' data-clipboard-text={clipboardData}>
+          复制一行by clipboard
+        </Button>
+        <Button id='clipboardallbtn' data-clipboard-text={allClipboardData}>
+          复制整体 by clipboard
+        </Button>
+        <Button onClick={copyRecordJS}>复制一行by clipboard.js</Button>
+        <Button onClick={copyRecordsJS}>复制整体 by clipboard.js</Button>
       </div>
-    );
-  }
-}
-
-export default App;
+      <Table rowClassName={setRowClassName} onRow={handleRow} dataSource={dataSource} columns={columns} />;
+    </div>
+  );
+};
